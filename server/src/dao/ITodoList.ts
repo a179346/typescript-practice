@@ -12,7 +12,7 @@ export type TTodoItem = TInputTodoItem & {
 export interface ITodoList {
   get: (id: number) => Promise<TTodoItem | null>;
   list: () => Promise<TTodoItem[]>;
-  insert: (inputTodoItem: TInputTodoItem) => Promise<void>;
+  insert: (inputTodoItem: TInputTodoItem) => Promise<TTodoItem>;
   remove: (id: number) => Promise<void>;
   update: (id: number, inputTodoItem: TInputTodoItem) => Promise<void>;
 }

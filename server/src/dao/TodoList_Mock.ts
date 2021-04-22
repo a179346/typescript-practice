@@ -32,7 +32,9 @@ class TodoList implements ITodoList {
   }
 
   async insert (inputTodoItem: TInputTodoItem) {
-    this.data.push({ ...inputTodoItem, id: ++this.increment });
+    const item = { id: ++this.increment, ...inputTodoItem };
+    this.data.push(item);
+    return item;
   }
 
   async remove (id: number) {

@@ -5,11 +5,11 @@ import logging from './utils/logging';
 import ApiError from './lib/ApiError';
 import todoRoute from './routes/todoList';
 
-express.urlencoded({ extended: false });
-express.json();
-
 const app = express();
 const NAMESPACE = 'Server';
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.get('/ping', (req, res) => {
   res.send('pong');

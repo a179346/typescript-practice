@@ -31,7 +31,20 @@ async function list (req: Request, res: Response, next: NextFunction) {
 }
 
 async function insert (req: Request, res: Response, next: NextFunction) {
-  //
+  if (!req.body)
+    return next(new ApiError(400, 'invalid request'));
+  if (typeof (req.body.title) !== 'string')
+    return next(new ApiError(400, 'invalid title'));
+  if (typeof (req.body.message) !== 'string')
+    return next(new ApiError(400, 'invalid message'));
+  const inputTodoItem = {
+    title: req.body.title,
+    message: req.body.message,
+    checked: false,
+  };
+  (res as ApiResponse).model = await todoLsit.insert(inputTodoItem);
+  (res as ApiResponse).handled = true;
+  next();
 }
 
 async function remove (req: Request, res: Response, next: NextFunction) {
