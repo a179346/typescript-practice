@@ -43,11 +43,12 @@ class TodoList implements ITodoList {
 
   async update (id: number, inputTodoItem: TInputTodoItem) {
     const item = this.data.find((item) => item.id === id);
-    if (item) {
-      item.title = inputTodoItem.title;
-      item.message = inputTodoItem.message;
-      item.checked = inputTodoItem.checked;
-    }
+    if (!item) return null;
+
+    item.title = inputTodoItem.title;
+    item.message = inputTodoItem.message;
+    item.checked = inputTodoItem.checked;
+    return item;
   }
 }
 
