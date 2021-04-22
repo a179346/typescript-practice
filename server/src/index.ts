@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+import ApiResponse from './lib/ApiResponse';
 import config from './system/config';
 import logging from './utils/logging';
 import ApiError from './lib/ApiError';
@@ -17,10 +18,10 @@ app.get('/ping', (req, res) => {
 app.use('/todolist', todoRoute);
 
 app.use((req, res, next) => {
-  if ((res as any).handled) {
+  if ((res as ApiResponse).handled) {
     return res.json({
       status: 200,
-      data: (res as any).model,
+      data: (res as ApiResponse).model,
     });
   }
   const error = new ApiError(404, 'Not Found');

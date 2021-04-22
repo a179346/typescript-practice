@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
+import ApiResponse from '../lib/ApiResponse';
 import { ITodoList } from '../dao/ITodoList';
 import TodoList from '../dao/TodoList_Mock';
 import ApiError from '../lib/ApiError';
@@ -18,13 +19,15 @@ async function get (req: Request, res: Response, next: NextFunction) {
   if (!item)
     return next(new ApiError(404, 'id not found'));
 
-  (res as any).model = item;
-  (res as any).handled = true;
+  (res as ApiResponse).model = item;
+  (res as ApiResponse).handled = true;
   next();
 }
 
 async function list (req: Request, res: Response, next: NextFunction) {
-  //
+  (res as ApiResponse).model = await todoLsit.list();
+  (res as ApiResponse).handled = true;
+  next();
 }
 
 async function insert (req: Request, res: Response, next: NextFunction) {
