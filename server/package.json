@@ -4,9 +4,11 @@
   "description": "typescript-practice",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/server/index.js",
-    "dev": "nodemon src/server/index.ts",
-    "build": "tsc"
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
+    "build": "rm -rf dist/ && tsc",
+    "lint": "eslint . --ext .js,.ts",
+    "lint-fix": "eslint --fix . --ext .js,.ts"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,9 @@
   "devDependencies": {
     "@types/express": "^4.17.11",
     "@types/node": "^14.14.41",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.24.0",
     "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"

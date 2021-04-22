@@ -1,1 +1,0 @@
-export const PORT = typeof(process.env.PORT) === 'number' ? process.env.PORT : 3000;
