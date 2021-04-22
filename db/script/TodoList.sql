@@ -2,6 +2,7 @@ CREATE TABLE `TodoList` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(128) NOT NULL COMMENT 'title',
   `message` VARCHAR(512) NOT NULL COMMENT 'message',
+  `checked` TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'checked',
   PRIMARY KEY (`id`) USING BTREE
 )
 COLLATE='utf8_general_ci'
