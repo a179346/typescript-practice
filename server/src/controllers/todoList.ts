@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { ApiResponse } from '../lib/ApiResponse';
 import { ITodoList, TInputTodoItem } from '../dao/ITodoList';
 import { TodoList } from '../dao/TodoList_Mock';
 import { ApiError } from '../lib/ApiError';
@@ -19,14 +18,14 @@ async function get (req: Request, res: Response, next: NextFunction) {
   if (!item)
     return next(new ApiError(404, 'id not found'));
 
-  (res as ApiResponse).model = item;
-  (res as ApiResponse).handled = true;
+  res.model = item;
+  res.handled = true;
   next();
 }
 
 async function list (req: Request, res: Response, next: NextFunction) {
-  (res as ApiResponse).model = await todoList.list();
-  (res as ApiResponse).handled = true;
+  res.model = await todoList.list();
+  res.handled = true;
   next();
 }
 
@@ -42,8 +41,8 @@ async function insert (req: Request, res: Response, next: NextFunction) {
     message: req.body.message,
     checked: typeof (req.body.checked) === 'boolean' ? req.body.checked : false,
   };
-  (res as ApiResponse).model = await todoList.insert(inputTodoItem);
-  (res as ApiResponse).handled = true;
+  res.model = await todoList.insert(inputTodoItem);
+  res.handled = true;
   next();
 }
 
@@ -76,8 +75,8 @@ async function update (req: Request, res: Response, next: NextFunction) {
   if (!item)
     return next(new ApiError(404, 'id not found'));
 
-  (res as ApiResponse).model = item;
-  (res as ApiResponse).handled = true;
+  res.model = item;
+  res.handled = true;
   next();
 }
 
