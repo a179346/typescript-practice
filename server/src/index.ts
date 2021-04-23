@@ -3,6 +3,7 @@ import { config } from './system/config';
 import { logging } from './utils/logging';
 import { ApiError } from './lib/ApiError';
 import { todoListRouter } from './routes/todoList';
+import { eHTTP_CODE } from './lib/enum';
 
 const app = express();
 const NAMESPACE = 'Server';
@@ -18,8 +19,8 @@ app.use('/todolist', todoListRouter);
 
 app.use((req, res, next) => {
   if (res.handled) {
-    return res.json({
-      status: 200,
+    return res.status(eHTTP_CODE.OK).json({
+      status: eHTTP_CODE.OK,
       data: res.model,
     });
   }
