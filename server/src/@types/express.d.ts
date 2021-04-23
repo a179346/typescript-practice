@@ -1,6 +1,6 @@
 declare namespace Express {
   export interface Response {
-     handled?: boolean
+     httpCode?: number
      model?: any
   }
 }

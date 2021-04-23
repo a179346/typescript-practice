@@ -3,7 +3,6 @@ import { config } from './system/config';
 import { logging } from './utils/logging';
 import { ApiError } from './lib/ApiError';
 import { todoListRouter } from './routes/todoList';
-import { eHTTP_CODE } from './lib/enum';
 
 const app = express();
 const NAMESPACE = 'Server';
@@ -18,9 +17,9 @@ app.get('/ping', (req, res) => {
 app.use('/todolist', todoListRouter);
 
 app.use((req, res, next) => {
-  if (res.handled) {
-    return res.status(eHTTP_CODE.OK).json({
-      status: eHTTP_CODE.OK,
+  if (res.httpCode !== undefined) {
+    return res.status(res.httpCode).json({
+      status: res.httpCode,
       data: res.model,
     });
   }

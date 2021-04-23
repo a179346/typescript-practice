@@ -20,13 +20,13 @@ async function get (req: Request, res: Response, next: NextFunction) {
     return next(new ApiError(eHTTP_CODE.NOT_FOUND, 'id not found'));
 
   res.model = item;
-  res.handled = true;
+  res.httpCode = eHTTP_CODE.OK;
   next();
 }
 
 async function list (req: Request, res: Response, next: NextFunction) {
   res.model = await todoList.list();
-  res.handled = true;
+  res.httpCode = eHTTP_CODE.OK;
   next();
 }
 
@@ -43,7 +43,7 @@ async function insert (req: Request, res: Response, next: NextFunction) {
     checked: typeof (req.body.checked) === 'boolean' ? req.body.checked : false,
   };
   res.model = await todoList.insert(inputTodoItem);
-  res.handled = true;
+  res.httpCode = eHTTP_CODE.CREATED;
   next();
 }
 
@@ -77,7 +77,7 @@ async function update (req: Request, res: Response, next: NextFunction) {
     return next(new ApiError(eHTTP_CODE.NOT_FOUND, 'id not found'));
 
   res.model = item;
-  res.handled = true;
+  res.httpCode = eHTTP_CODE.OK;
   next();
 }
 
