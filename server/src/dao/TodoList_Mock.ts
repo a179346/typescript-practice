@@ -1,6 +1,6 @@
 import { ITodoList, TTodoItem, TInputTodoItem } from './ITodoList';
 
-class TodoList implements ITodoList {
+class Todolist implements ITodoList {
   private data: TTodoItem[];
   private increment: number;
   constructor () {
@@ -52,4 +52,4 @@ class TodoList implements ITodoList {
   }
 }
 
-export default (new TodoList());
+export const TodoList = new Todolist();

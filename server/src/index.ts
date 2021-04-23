@@ -1,9 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
-import ApiResponse from './lib/ApiResponse';
-import config from './system/config';
-import logging from './utils/logging';
-import ApiError from './lib/ApiError';
-import todoRoute from './routes/todoList';
+import { ApiResponse } from './lib/ApiResponse';
+import { config } from './system/config';
+import { logging } from './utils/logging';
+import { ApiError } from './lib/ApiError';
+import { todoListRouter } from './routes/todoList';
 
 const app = express();
 const NAMESPACE = 'Server';
@@ -15,7 +15,7 @@ app.get('/ping', (req, res) => {
   res.send('pong');
 });
 
-app.use('/todolist', todoRoute);
+app.use('/todolist', todoListRouter);
 
 app.use((req, res, next) => {
   if ((res as ApiResponse).handled) {

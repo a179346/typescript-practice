@@ -11,6 +11,15 @@ function info (namespace:string, message: string, obj?: any) {
   }
 }
 
-export default {
+function error (namespace:string, message: string, obj?: any) {
+  if (obj) {
+    console.error(`[${getTime()}] [ERROR] [${namespace}] ${message}`, obj);
+  } else {
+    console.error(`[${getTime()}] [ERROR] [${namespace}] ${message}`);
+  }
+}
+
+export const logging = {
   info,
+  error,
 };

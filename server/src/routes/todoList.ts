@@ -1,11 +1,11 @@
 import express from 'express';
-import controller from '../controllers/todoList';
+import { todoListController } from '../controllers/todoList';
 
 const router = express.Router();
 
-router.get('/:id', controller.get);
-router.get('/', controller.list);
-router.post('/', controller.insert);
-router.patch('/:id', controller.update);
+router.get('/:id', todoListController.get);
+router.get('/', todoListController.list);
+router.post('/', todoListController.insert);
+router.patch('/:id', todoListController.update);
 
-export default router;
+export const todoListRouter = router;

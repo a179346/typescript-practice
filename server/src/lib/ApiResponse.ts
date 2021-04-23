@@ -1,8 +1,6 @@
 import { Response } from 'express';
 
-type ApiResponse = Response & {
+export type ApiResponse = Response & {
   model: any;
   handled: boolean | undefined;
 };
-
-export default ApiResponse;
