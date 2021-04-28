@@ -1,47 +1,21 @@
-import express, { Request, Response, NextFunction } from 'express';
+import 'reflect-metadata';
 import { config } from './system/config';
 import { logging } from './utils/logging';
-import { ApiError } from './lib/ApiError';
-import { todoListRouter } from './routes/todoList';
+import { app } from './app';
+import { TypeOrmConnection } from './utils/typeorm-connection';
 
-const app = express();
-const NAMESPACE = 'Server';
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+const NAMESPACE = 'Index';
+start();
 
-app.get('/ping', (req, res) => {
-  res.send('pong');
-});
+async function start () {
+  try {
+    await TypeOrmConnection.init();
 
-app.use('/todolist', todoListRouter);
-
-app.use((req, res, next) => {
-  if (res.httpCode !== undefined) {
-    return res.status(res.httpCode).json({
-      status: res.httpCode,
-      data: res.model,
+    app.listen(config.server.PORT, () => {
+      logging.info(NAMESPACE, `server listening on ${config.server.PORT}`);
     });
+  } catch (error) {
+    logging.error(NAMESPACE, (error as Error).message, error);
   }
-  const error = new ApiError(404, 'Not Found');
-  next(error);
-});
-
-app.use((err: any, req:Request, res:Response, next:NextFunction) => {
-  let message = 'unknown error';
-  let status = 400;
-  if (err && typeof (err.message) === 'string') {
-    message = err.message;
-  }
-  if (err instanceof ApiError) {
-    status = err.status;
-  }
-  res.status(status).json({
-    status,
-    message
-  });
-});
-
-app.listen(config.server.PORT, () => {
-  logging.info(NAMESPACE, `server listening on ${config.server.PORT}`);
-});
+}
