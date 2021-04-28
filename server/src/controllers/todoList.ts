@@ -1,15 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { ITodoList, TInputTodoItem } from '../dao/ITodoList';
-import { TodoList } from '../dao/TodoList_Mock';
+import { ITodoListService, IInputTodoItem } from '../interface/ITodoList';
+// import { TodoListService } from '../dao/TodoList_Mock';
+import { TodoListService } from '../dao/TodoList';
 import { ApiError } from '../lib/ApiError';
 import { Lib } from '../lib/common';
 import { eHTTP_CODE } from '../lib/enum';
 
-const todoList: ITodoList = TodoList;
+const todoList: ITodoListService = TodoListService;
 
 async function get (req: Request, res: Response, next: NextFunction) {
-  const id = req.params && req.params.id;
+  const id = req.params?.id;
   if (typeof (id) !== 'string')
     return next(new ApiError(eHTTP_CODE.BAD_REQUEST, 'id is required'));
   if (!Lib.isInteger(id))
@@ -37,7 +38,7 @@ async function insert (req: Request, res: Response, next: NextFunction) {
     return next(new ApiError(eHTTP_CODE.BAD_REQUEST, 'invalid title'));
   if (typeof (req.body.message) !== 'string')
     return next(new ApiError(eHTTP_CODE.BAD_REQUEST, 'invalid message'));
-  const inputTodoItem: TInputTodoItem = {
+  const inputTodoItem: IInputTodoItem = {
     title: req.body.title,
     message: req.body.message,
     checked: typeof (req.body.checked) === 'boolean' ? req.body.checked : false,
@@ -52,7 +53,7 @@ async function remove (req: Request, res: Response, next: NextFunction) {
 }
 
 async function update (req: Request, res: Response, next: NextFunction) {
-  const id = req.params && req.params.id;
+  const id = req.params?.id;
   if (typeof (id) !== 'string')
     return next(new ApiError(eHTTP_CODE.BAD_REQUEST, 'id is required'));
   if (!Lib.isInteger(id))
@@ -66,7 +67,7 @@ async function update (req: Request, res: Response, next: NextFunction) {
     return next(new ApiError(eHTTP_CODE.BAD_REQUEST, 'invalid message'));
   if (typeof (req.body.checked) !== 'boolean')
     return next(new ApiError(eHTTP_CODE.BAD_REQUEST, 'invalid checked'));
-  const inputTodoItem: TInputTodoItem = {
+  const inputTodoItem: IInputTodoItem = {
     title: req.body.title,
     message: req.body.message,
     checked: req.body.checked,

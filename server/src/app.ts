@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 app.use((err: any, req:Request, res:Response, next:NextFunction) => {
   let message = 'unknown error';
   let status = 400;
-  if (err && typeof (err.message) === 'string') {
+  if (typeof (err?.message) === 'string') {
     message = err.message;
   }
   if (err instanceof ApiError) {

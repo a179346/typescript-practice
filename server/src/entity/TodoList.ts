@@ -19,10 +19,9 @@ export class TodoList {
     message!: string;
 
     @Column({
-      type: 'tinyint',
-      default: 0,
+      default: false,
       nullable: false
     })
-    checked!: number;
+    checked!: boolean;
 
 }

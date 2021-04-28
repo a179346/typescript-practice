@@ -1,7 +1,7 @@
-import { ITodoList, TTodoItem, TInputTodoItem } from './ITodoList';
+import { ITodoListService, ITodoItem, IInputTodoItem } from '../interface/ITodoList';
 
-class Todolist implements ITodoList {
-  private data: TTodoItem[];
+class TodolistService implements ITodoListService {
+  private data: ITodoItem[];
   private increment: number;
   constructor () {
     this.data = [ {
@@ -23,25 +23,25 @@ class Todolist implements ITodoList {
     this.increment = 2;
   }
 
-  async get (id:number) {
+  public async get (id:number) {
     return this.data.find((item) => item.id === id) || null;
   }
 
-  async list () {
+  public async list () {
     return this.data;
   }
 
-  async insert (inputTodoItem: TInputTodoItem) {
+  public async insert (inputTodoItem: IInputTodoItem) {
     const item = { id: ++this.increment, ...inputTodoItem };
     this.data.push(item);
     return item;
   }
 
-  async remove (id: number) {
+  public async remove (id: number) {
     this.data = this.data.filter((item) => item.id !== id);
   }
 
-  async update (id: number, inputTodoItem: TInputTodoItem) {
+  public async update (id: number, inputTodoItem: IInputTodoItem) {
     const item = this.data.find((item) => item.id === id);
     if (!item) return null;
 
@@ -52,4 +52,4 @@ class Todolist implements ITodoList {
   }
 }
 
-export const TodoList = new Todolist();
+export const TodoListService = new TodolistService();
