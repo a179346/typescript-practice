@@ -18,9 +18,6 @@ class TodolistService implements ITodoListService {
 
   public async insert (inputTodoItem: IInputTodoItem) {
     const todoItem = new TodoList();
-    // todoItem.message = inputTodoItem.message;
-    // todoItem.title = inputTodoItem.title;
-    // todoItem.checked = inputTodoItem.checked;
     return await this.repository.save({
       ...todoItem,
       ...inputTodoItem
@@ -32,6 +29,7 @@ class TodolistService implements ITodoListService {
     if (todoItem) {
       await this.repository.remove(todoItem);
     }
+    return todoItem ? { ...todoItem, id } : null;
   }
 
   public async update (id: number, inputTodoItem: IInputTodoItem) {

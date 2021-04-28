@@ -7,5 +7,6 @@ router.get('/:id', todoListController.get);
 router.get('/', todoListController.list);
 router.post('/', todoListController.insert);
 router.patch('/:id', todoListController.update);
+router.delete('/:id', todoListController.remove);
 
 export const todoListRouter = router;

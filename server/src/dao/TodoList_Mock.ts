@@ -38,7 +38,15 @@ class TodolistService implements ITodoListService {
   }
 
   public async remove (id: number) {
-    this.data = this.data.filter((item) => item.id !== id);
+    let removeVal = null;
+    this.data = this.data.filter((item) => {
+      if (item.id === id) {
+        removeVal = item;
+        return false;
+      }
+      return true;
+    });
+    return removeVal;
   }
 
   public async update (id: number, inputTodoItem: IInputTodoItem) {

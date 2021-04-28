@@ -49,7 +49,19 @@ async function insert (req: Request, res: Response, next: NextFunction) {
 }
 
 async function remove (req: Request, res: Response, next: NextFunction) {
-  //
+  const id = req.params?.id;
+  if (typeof (id) !== 'string')
+    return next(new ApiError(eHTTP_CODE.BAD_REQUEST, 'id is required'));
+  if (!Lib.isInteger(id))
+    return next(new ApiError(eHTTP_CODE.BAD_REQUEST, 'invalid id'));
+
+  const item = await todoList.remove(parseInt(id, 10));
+  if (!item)
+    return next(new ApiError(eHTTP_CODE.NOT_FOUND, 'id not found'));
+
+  res.model = item;
+  res.httpCode = eHTTP_CODE.OK;
+  next();
 }
 
 async function update (req: Request, res: Response, next: NextFunction) {
