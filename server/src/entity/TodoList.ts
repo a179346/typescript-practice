@@ -1,7 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { ITodoItem } from '../interface/ITodoList';
 
 @Entity()
-export class TodoList {
+export class TodoList implements ITodoItem {
 
     @PrimaryGeneratedColumn()
     id!: number;
