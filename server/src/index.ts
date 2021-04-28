@@ -12,6 +12,7 @@ start();
 async function start () {
   try {
     Lib.retry(async () => {
+      logging.info(NAMESPACE, 'connecting to db ...');
       await TypeOrmConnection.init();
     }, 3, 3000);
 
