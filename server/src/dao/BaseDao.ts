@@ -40,14 +40,12 @@ export abstract class BaseDao<T, inputT> implements BaseInterfaceService<T, inpu
 
   public async update (id: number, inputItem: inputT) {
     const item = await this.repository.findOne(id);
-    let saveVal = null;
-    if (item) {
-      saveVal = {
-        ...item,
-        ...inputItem
-      };
-      await this.repository.save(saveVal);
-    }
-    return saveVal;
+    if (!item)
+      return null;
+    const saveVal = {
+      ...item,
+      ...inputItem
+    };
+    return await this.repository.save(saveVal);
   }
 }

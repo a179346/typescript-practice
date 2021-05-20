@@ -25,7 +25,8 @@
     "express": "^4.17.1",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.32"
+    "typeorm": "^0.2.32",
+    "validax": "^1.4.0"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
